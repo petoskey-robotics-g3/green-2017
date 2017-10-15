@@ -171,7 +171,7 @@ public class Vuforia extends LinearOpMode {
             }
             else {
                 telemetry.addData("VuMark", "not visible");
-            }
+            }n
 
             telemetry.update();
         }
