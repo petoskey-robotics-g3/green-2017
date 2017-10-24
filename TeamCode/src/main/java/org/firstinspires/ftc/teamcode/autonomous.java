@@ -18,8 +18,8 @@ public class autonomous extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        right = hardwareMap.dcMotor.get("rightMotor");
-        left = hardwareMap.dcMotor.get("leftMotor");
+        right = hardwareMap.dcMotor.get("right_drive");
+        left = hardwareMap.dcMotor.get("left_drive");
 
         right.setPower(.5);
         left.setPower(-.5);
