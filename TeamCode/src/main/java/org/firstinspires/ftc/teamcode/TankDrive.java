@@ -29,6 +29,11 @@ public class TankDrive extends OpMode {
     public void loop() {
         float leftY = gamepad1.left_stick_y;
         float rightY = gamepad1.right_stick_y;
+        float rightTrigger = gamepad2.right_trigger;
+        float leftTrigger = gamepad2.left_trigger;
+        boolean rightBumper = gamepad2.right_bumper;
+        boolean leftBumper = gamepad2.left_bumper;
+
 //        leftY = (leftY == 0) ? -gamepad2.left_stick_y : leftY;
 //        rightY = (rightY == 0) ? -gamepad2.right_stick_y : rightY;
 
@@ -43,10 +48,24 @@ public class TankDrive extends OpMode {
 
         if(leftBumper){
             telemetry.addData("left bumper", leftBumper);
-            liftMotor.setPower(0.5);
+            grabberMotor.setPower(.02);
         }
-        if(rightBumper){
+        if(rightBumper) {
             telemetry.addData("right bumper", rightBumper);
+            grabberMotor.setPower(-.02);
         }
+        if(rightTrigger > 0.0) {
+            liftMotor.setPower(-rightTrigger);
+
+        }else if(leftTrigger > 0.0) {
+            liftMotor.setPower(leftTrigger);
+        } else{
+            liftMotor.setPower(0.0);
+        }
+
+
+
     }
+
+
 }
