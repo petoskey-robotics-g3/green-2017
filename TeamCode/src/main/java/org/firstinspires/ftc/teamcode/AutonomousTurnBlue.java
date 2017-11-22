@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Created by Petoskey Paladins on 10/15/2017.
  */
-@Autonomous ( name = "Autonomous")
+@Autonomous ( name = "AutonomousTurnBlue")
 
 public class AutonomousTurnBlue extends LinearOpMode {
     public DcMotor right;
