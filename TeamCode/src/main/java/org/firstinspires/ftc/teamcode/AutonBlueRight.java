@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -55,13 +56,29 @@ public class AutonBlueRight extends LinearOpMode {
         liftMotor = hardwareMap.dcMotor.get("lift");
         grabberMotor = hardwareMap.dcMotor.get("grabber");
         // touch = hardwareMap.touchSensor.get("touch");
-        goForwards(1450);
-        sleep(300);
-        turnLeft(550);
-        sleep(10);
-        goForwards(1000);
-        sleep(5);
-        //grabber code goes here
+
+        left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        left.setTargetPosition(1440);
+        right.setTargetPosition(1440);
+
+        left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        goForwards(0.5);
+
+
+        while(left.isBusy() && right.isBusy()) {
+
+        }
+
+        stopDriving();
+        left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         openGrabber();
 
         goBackwards(125);
@@ -174,38 +191,33 @@ public class AutonBlueRight extends LinearOpMode {
         sleep(500);
     }
 
-    public void turnLeft(int time) {
-        right.setPower(-.6);
-        left.setPower(-.6);
-        sleep(time);
-        right.setPower(.0);
-        left.setPower(.0);
-    }
-
-    public void turnRight(int time) {
-        right.setPower(.6);
-        left.setPower(.6);
-        sleep(time);
-        right.setPower(-.0);
-        left.setPower(-.0);
-    }
-
-    public void goForwards(int time) {
-        right.setPower(-.25);
-        left.setPower(.4);
-        sleep(time);
-        right.setPower(-.0);
-        left.setPower(.0);
-    }
-
-    public void goBackwards(int time) {
-        right.setPower(.6);
-        left.setPower(-.6);
-        sleep(time);
-        right.setPower(.0);
-        left.setPower(-.0);
+    public void turnLeft(double power) {
+        right.setPower(-power);
+        left.setPower(-power);
 
     }
+
+    public void turnRight(double power) {
+        right.setPower(power);
+        left.setPower(power);
+
+    }
+
+    public void goForwards(double power) {
+        right.setPower(-power);
+        left.setPower(power);
+    }
+
+    public void goBackwards(double power) {
+        right.setPower(power);
+        left.setPower(-power);
+
+    }
+    public void stopDriving(){
+        goForwards(0.0);
+
+    }
+
     String format(OpenGLMatrix transformationMatrix) {
         return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
     }

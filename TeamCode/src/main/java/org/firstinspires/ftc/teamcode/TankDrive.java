@@ -47,7 +47,7 @@ HardwarePushbot robot   = new HardwarePushbot();   // Use a Pushbot's hardware
 
     @Override
     public void loop() {
-        float leftY = -gamepad1.left_stick_y;
+        float leftY = gamepad1.left_stick_y;
         float rightY = gamepad1.right_stick_y;
 //        telemetry.addData("touch", touch);
         float clawStick = gamepad2.left_stick_y;
@@ -62,8 +62,8 @@ HardwarePushbot robot   = new HardwarePushbot();   // Use a Pushbot's hardware
         boolean rightBumper = gamepad2.right_bumper;
 
 
-//        leftY = (leftY == 0) ? -gamepad2.left_stick_y : leftY;
-//        rightY = (rightY == 0) ? -gamepad2.right_stick_y : rightY;
+        leftY = (leftY == 0) ? -gamepad2.left_stick_y : leftY;
+        rightY = (rightY == 0) ? -gamepad2.right_stick_y : rightY;
 
         telemetry.addData("left joystick value gamepad1", leftY);
         telemetry.addData("right joystick value gamepad1", rightY);
@@ -72,7 +72,7 @@ HardwarePushbot robot   = new HardwarePushbot();   // Use a Pushbot's hardware
         //rightBumper = gamepad2.right_bumper;
 
         leftMotor.setPower(leftY);
-        rightMotor.setPower(-rightY);
+        rightMotor.setPower(rightY);
 
         grabberMotor.setPower(clawStick);
 
